@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MyShop.Core.Models.Product>
+﻿@model MyShop.Core.ViewModels.ProductListViewModel
 
 @{
     ViewBag.Title = "Home Page";
@@ -6,7 +6,22 @@
 
 <h1>Products</h1>
 
-@foreach (var item in Model)
+<div class="col-md-2">
+    <h4>Filter By Category</h4>
+    <div class="list-group">
+        @Html.ActionLink("All","Index",null,new { @class=Request["Category"]==null?"list-group-item active": "list-group-item"})
+        @foreach(var item in Model.productCategories)
+        {
+            @Html.ActionLink(item.Category,"Index",new {Category=item.Category},new {@class=Request["Category"]==item.Category?"list-group-item active": "list-group-item" })
+        }
+    </div>
+</div>
+<div class="col-md-10">
+
+</div>
+
+
+@foreach (var item in Model.product)
 {
     <div class="col-md-4" style="height:450px;padding:10px;margin:10px;border:solid thin whitesmoke">
         <div class="col-md-12">
