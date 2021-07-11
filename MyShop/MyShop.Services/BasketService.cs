@@ -17,7 +17,7 @@ namespace MyShop.Services
 
         public const string BasketSessionName = "eCommerceBasket";
 
-        public BasketService (IRepository<Product> Context,
+        public BasketService (IRepository<Product> Context, 
         IRepository<Basket> BasketContext)
         {
             this.productContext = Context;
@@ -151,6 +151,13 @@ namespace MyShop.Services
             {
                 return model;
             }
+        }
+
+        public void ClearBasket(HttpContextBase httpContext)
+        {
+            Basket basket = GetBasket(httpContext, false);
+            basket.BasketItems.Clear();
+            basketContext.Commit();
         }
     }
 
