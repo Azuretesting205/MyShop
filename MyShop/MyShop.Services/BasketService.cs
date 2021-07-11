@@ -58,13 +58,13 @@ namespace MyShop.Services
 
 
         private Basket createNewBasket(HttpContextBase httpContext)
-        {
+        { 
             Basket basket = new Basket();
             basketContext.Insert(basket);
             basketContext.Commit();
 
             HttpCookie cookie = new HttpCookie(BasketSessionName);
-            cookie.Value = cookie.Value;
+            cookie.Value = basket.Id;
             cookie.Expires = DateTime.Now.AddDays(1);
             httpContext.Response.Cookies.Add(cookie);
 
@@ -114,7 +114,8 @@ namespace MyShop.Services
                                   Id = b.Id,
                                   ProductName = p.Name,
                                   Image = p.Image,
-                                  Price = p.Price
+                                  Price = p.Price,
+                                  Quantity = b.Quantity
                               }).ToList();
 
                 return result;
